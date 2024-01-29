@@ -24,8 +24,9 @@ void main() {
   final List juguetes = mascota['juguetes_favoritos'];
 
   final resultado = comidas.firstWhere((comida) => comida == 'Pescado');
-  final rjuguetes =
-      juguetes.where((juguete) => juguete['color'] == 'Rojo').toList();
+  final rjuguetes = juguetes.where((juguete) {
+    return juguete['color'] == 'Rojo';
+  }).toList();
 
   print(resultado);
   print(rjuguetes);
