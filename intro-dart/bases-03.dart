@@ -5,7 +5,13 @@ void main() {
   final String? nombre = null;
 
   print(nombreCompleto(nombre: 'Juan'));
-  print(nombreCompleto2('Juan', apellido: 'Alvarenga'));
+  print(nombreCompleto2(
+    'Juan',
+  ));
+  print(nombreCompleto4(
+    null,
+    'Alvarenga',
+  ));
 }
 
 String saludo(String nombre) {
@@ -19,12 +25,20 @@ String saludo(String nombre) {
 // para que un argumento sea opcional se debe definir un valor por defecto o
 // se debe definir como nullable con el operador ?
 String nombreCompleto({required String nombre, String? apellido}) =>
-    '$nombre $apellido';
+    '$nombre ${apellido ?? ''}';
 
 // Otra forma de definir una funcion con argumentos con nombre
 // es combinar el uso de {} y el operador ? para definir argumentos
 // ademas se puede definir argumentos con nombre y argumentos obligatorios (Posicionales)
 String nombreCompleto2(String nombre, {String? apellido}) {
+  if (apellido == null) {
+    return nombre;
+  }
   print('olii');
   return '$nombre $apellido';
 }
+
+String nombreCompleto3({required String nombre, String apellido = ''}) =>
+    '$nombre $apellido';
+
+String nombreCompleto4(String? nombre, String? apellido) => '$nombre $apellido';
