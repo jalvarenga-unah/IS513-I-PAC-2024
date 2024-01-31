@@ -1,21 +1,14 @@
+import 'heroe.dart';
+
 void main() {
-  final wolverine = Heroe('Logan', 'Regeneración');
+  final heroe = {'nombre': 'Logan', 'poder': 'Regeneración'};
+
+  final wolverine = Heroe.fromJson(heroe);
+
+  // wolverine.nombre = 'Batman';
+  wolverine.villano = 'Magneto';
+
+  final batman = Heroe(nombre: 'Batman', poder: 'El dinero');
   wolverine.saludar();
-}
-
-class Heroe {
-  //propiedades
-  late final String nombre;
-  late final String poder;
-
-  // constructor
-  Heroe(String nombre, String poder) {
-    this.nombre = nombre;
-    this.poder = poder;
-  }
-
-  // comportamientos
-  void saludar() {
-    print('Hola soy ${this.nombre} y mi poder es $poder');
-  }
+  batman.saludar();
 }
