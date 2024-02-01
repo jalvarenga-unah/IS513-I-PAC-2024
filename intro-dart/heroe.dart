@@ -27,11 +27,7 @@ class Heroe {
   }
 
   // getters y setters
-  String get villano {
-    // es libre de hacer lo que quiera
-
-    return _villano ?? 'No tiene villano';
-  }
+  String get villano => _villano ?? 'No tiene villano';
 
   set villano(String nombre) {
     // todo lo que quiera
