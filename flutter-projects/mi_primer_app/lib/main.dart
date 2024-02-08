@@ -7,8 +7,16 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // const MyApp({super.key});
+  int contador = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +36,28 @@ class MyApp extends StatelessWidget {
           // backgroundColor: Color.fromRGBO(186, 104, 200, 1),
           backgroundColor: const Color(0xFFAB47BC),
         ),
-        body: const SizedBox(
+        body: SizedBox(
           width: double.infinity,
           child: Column(
             // mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Hizo tantas veces clic:'),
-              Text('10'),
+              const Text('Hizo tantas veces clic:'),
+              Text('$contador'),
             ],
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: FloatingActionButton(
           // backgroundColor: Colors.deepPurple[100],
           onPressed: () {
-            print('Hizo clic ');
+            contador++;
+
+            // no es necesario que la logica esté dentro de
+            // la función setState
+            // solo se necesita hacer el llamado a la función
+            setState(() {});
           },
           child: const Icon(
             Icons.add,
