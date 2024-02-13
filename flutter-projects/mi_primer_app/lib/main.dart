@@ -20,6 +20,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+      color: Colors.deepPurple,
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mi primer App',
@@ -43,22 +49,21 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Hizo tantas veces clic:'),
-              Text('$contador'),
+              const Text(
+                'Hello World!',
+                style: textStyle,
+              ),
+              Text(
+                '$contador',
+                style: textStyle,
+              ),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: FloatingActionButton(
           // backgroundColor: Colors.deepPurple[100],
-          onPressed: () {
-            contador++;
-
-            // no es necesario que la logica esté dentro de
-            // la función setState
-            // solo se necesita hacer el llamado a la función
-            setState(() {});
-          },
+          onPressed: incrementarContador,
           child: const Icon(
             Icons.add,
             color: Colors.deepPurple,
@@ -66,5 +71,10 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  void incrementarContador() {
+    contador++;
+    setState(() {});
   }
 }
