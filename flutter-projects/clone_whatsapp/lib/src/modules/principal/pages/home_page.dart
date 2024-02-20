@@ -1,5 +1,5 @@
-import 'package:clone_whatsapp/src/modules/principal/pages/camara_page.dart';
-import 'package:clone_whatsapp/src/modules/principal/pages/chats_page.dart';
+import 'package:clone_whatsapp/src/modules/principal/pages/fragments/camara_page.dart';
+import 'package:clone_whatsapp/src/modules/principal/pages/fragments/chats_page.dart';
 import 'package:clone_whatsapp/src/shared/widgets/custom_icon_button.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: 1,
       length: 4,
       child: Scaffold(
         appBar: AppBar(
