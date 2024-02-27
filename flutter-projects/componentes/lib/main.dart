@@ -1,3 +1,5 @@
+import 'package:componentes/details_page.dart';
+import 'package:componentes/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -9,102 +11,50 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Componentes'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              PrimaryButton(
-                text: 'Haz click',
-                onPressed: () => print('Hola'),
-              ),
-              PrimaryButton(
-                text: 'Haz click otra vez',
-                onPressed: () => print('Hola'),
-              ),
-              SecondaryButton(
-                text: 'Haz click una ultima otra vez',
-                onPressed: () {},
-              ),
-              AlternativeButton(
-                text: 'Haz click una ultima otra vez',
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// *  Otros widgets
-
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({super.key, required this.text, this.onPressed});
-
-  final String text;
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue, // color de fondo
-        foregroundColor: Colors.white, // color de texto
-      ),
-      onPressed: onPressed,
-      child: Text(text),
-    );
-  }
-}
-
-class SecondaryButton extends StatelessWidget {
-  const SecondaryButton({super.key, required this.text, this.onPressed});
-
-  final String text;
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
-      child: Text(text),
-    );
-  }
-}
-
-class AlternativeButton extends StatelessWidget {
-  const AlternativeButton({super.key, required this.text, this.onPressed});
-
-  final String text;
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print('Holii');
+      // home: HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/details': (context) => const DetailsPage(),
       },
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          // color: Colors.purple[100],
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
+      onGenerateRoute: (settings) {
+        // ? Si la ruta no existe, se crea una ruta por defecto
+        // ? que muestra un mensaje de error
+
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const HomePage());
+          case '/details':
+            return MaterialPageRoute(builder: (context) => const DetailsPage());
+          default:
+            return MaterialPageRoute(
+              builder: (context) => PageNotFound(name: settings.name),
+            );
+        }
+      },
+    );
+  }
+}
+
+class PageNotFound extends StatelessWidget {
+  const PageNotFound({super.key, required this.name});
+
+  final String? name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Haz clic pofabo',
-              style: TextStyle(
-                color: Colors.purple[900],
-                fontWeight: FontWeight.bold,
-              ),
+            Text('La ruta $name no existe'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/');
+              },
+              child: const Text('Ir a la página principal'),
             ),
-            const Icon(Icons.add)
           ],
         ),
       ),
