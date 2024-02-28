@@ -1,3 +1,4 @@
+import 'package:componentes/my_routes.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,15 +20,15 @@ class HomePage extends StatelessWidget {
               text: 'Ir a otra pantalla',
               onPressed: () {
                 // * Navegación a otra pantalla
-                Navigator.pushNamed(context, '/details');
+                Navigator.pushNamed(context, MyRoutes.details.name);
               },
             ),
             SecondaryButton(
-              text: ' Navegar y reemplazar',
+              text: ' Listar productos',
               onPressed: () {
                 // * Navegación a otra pantalla y reemplazar
                 //* la pila de navegación
-                Navigator.pushReplacementNamed(context, 'detail');
+                Navigator.pushReplacementNamed(context, MyRoutes.products.name);
               },
             ),
             // AlternativeButton(
