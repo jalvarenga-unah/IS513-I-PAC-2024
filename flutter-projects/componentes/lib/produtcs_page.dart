@@ -1,3 +1,4 @@
+import 'package:componentes/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatelessWidget {
@@ -5,6 +6,14 @@ class ProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ProductosProvider();
+
+    final productos = provider.getProdutcs();
+
+    // FutureBuilder
+
+    print(productos);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Productos'),

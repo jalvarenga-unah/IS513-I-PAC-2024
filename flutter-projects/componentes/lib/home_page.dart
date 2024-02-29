@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 // * Navegación a otra pantalla y reemplazar
                 //* la pila de navegación
-                Navigator.pushReplacementNamed(context, MyRoutes.products.name);
+                Navigator.pushNamed(context, MyRoutes.products.name);
               },
             ),
             // AlternativeButton(
