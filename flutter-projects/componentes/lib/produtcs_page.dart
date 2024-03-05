@@ -1,4 +1,5 @@
 import 'package:componentes/models/producto.dart';
+import 'package:componentes/my_routes.dart';
 import 'package:componentes/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class ProductsPage extends StatelessWidget {
             if (snapshot.hasData) {
               final productos = snapshot.data!;
 
-              return ItemProduct(productos: productos);
+              return ListProducts(productos: productos);
             }
             return const Center(
               child: CircularProgressIndicator(),
@@ -41,8 +42,8 @@ class ProductsPage extends StatelessWidget {
   }
 }
 
-class ItemProduct extends StatelessWidget {
-  const ItemProduct({
+class ListProducts extends StatelessWidget {
+  const ListProducts({
     super.key,
     required this.productos,
   });
@@ -56,36 +57,66 @@ class ItemProduct extends StatelessWidget {
       itemBuilder: (context, index) {
         final producto = productos[index];
 
-        return Card(
-          margin: const EdgeInsets.all(10),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(
-                child: Image.network(
-                  producto.image,
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                producto.title,
-                style: const TextStyle(
-                    fontSize: 24.0, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                producto.description.length > 100
-                    ? producto.description.substring(0, 50)
-                    : producto.description,
-              ),
-            ]),
-          ),
-        );
+        return ItemProduct(producto: producto);
       },
+    );
+  }
+}
+
+class ItemProduct extends StatelessWidget {
+  const ItemProduct({
+    super.key,
+    required this.producto,
+  });
+
+  final Producto producto;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(10),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Image.network(
+                producto.image,
+                height: 150,
+                width: 150,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              producto.title,
+              style:
+                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              producto.description.length > 100
+                  ? producto.description.substring(0, 50)
+                  : producto.description,
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    MyRoutes.productDetails.name,
+                    arguments: producto,
+                  );
+                },
+                child: const Text('ver mas...'),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

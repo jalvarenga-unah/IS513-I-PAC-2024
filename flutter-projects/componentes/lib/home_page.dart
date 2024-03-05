@@ -31,10 +31,12 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, MyRoutes.products.name);
               },
             ),
-            // AlternativeButton(
-            //   text: 'Haz click una ultima otra vez',
-            //   onPressed: () {},
-            // ),
+            AlternativeButton(
+              text: 'Inputs',
+              onPressed: () {
+                Navigator.pushNamed(context, MyRoutes.inputs.name);
+              },
+            ),
           ],
         ),
       ),
@@ -87,9 +89,7 @@ class AlternativeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('Holii');
-      },
+      onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -100,7 +100,7 @@ class AlternativeButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Haz clic pofabo',
+              text,
               style: TextStyle(
                 color: Colors.purple[900],
                 fontWeight: FontWeight.bold,

@@ -10,4 +10,5 @@ enum MyRoutes {
   auth,
   products,
   productDetails,
+  inputs,
 }
