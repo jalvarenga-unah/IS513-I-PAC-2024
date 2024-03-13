@@ -48,18 +48,27 @@ class InputsPage extends StatelessWidget {
                       TextFormField(
                         controller: nombreController,
                         maxLength: 20,
+                        validator: validador,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          label: Text('Nombre'),
+                          icon: Icon(Icons.person),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: apellidoController,
+                        maxLength: 40,
                         validator: (value) {
-                          if (value!.isEmpty) return 'El nombre es obligatorio';
-
-                          if (value.length < 3)
-                            return 'El nombre debe tener al menos 3 caracteres';
+                          if (value!.isEmpty)
+                            return 'El apellido es obligatorio';
 
                           return null;
                         },
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                          label: Text('Nombre'),
-                          icon: Icon(Icons.person),
+                          label: Text('Apellido'),
+                          icon: Icon(Icons.person_2),
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -75,6 +84,16 @@ class InputsPage extends StatelessWidget {
             //acceder al valor del email
             print(emailController.text);
 
+            final apellido = apellidoController.text;
+
+            // if (apellido.isEmpty) {
+            //   //TODO: mostrar un snackbar al usuario
+
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //       SnackBar(content: Text('El apellido es obligaorio')));
+            //   return;
+            // }
+
             if (formKey.currentState!.validate()) {
               print('formulario valido');
               //TODO: LOGICA PARA GUARDAR LOS DATOS
@@ -82,6 +101,14 @@ class InputsPage extends StatelessWidget {
           },
           child: const Icon(Icons.clear),
         ));
+  }
+
+  String? validador(value) {
+    if (value!.isEmpty) return 'El nombre es obligatorio';
+
+    if (value.length < 3) return 'El nombre debe tener al menos 3 caracteres';
+
+    return null;
   }
 }
 
