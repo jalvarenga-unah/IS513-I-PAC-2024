@@ -1,42 +1,28 @@
+import 'package:bottom_menu/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key, this.currentIndex = 0});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  int currentIndex;
+  // Inherited
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+  final homeController = Get.put<HomeController>(HomeController());
   final pageController = PageController();
-
-  @override
-  void initState() {
-    // TODO: implementar la transición de la
-    //TODO:  página mediante un gestor de estados
-    super.initState();
-    // pageController.animateToPage(
-    //   widget.currentIndex,
-    //   curve: Curves.easeIn,
-    //   duration: const Duration(milliseconds: 300),
-    // );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Material App Bar'),
+        title: const Text('Material App'),
       ),
       body: PageView(
-        controller: pageController,
         // se bloquea el scroll
-        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        // physics: const NeverScrollableScrollPhysics(),
+
         onPageChanged: (value) {
-          widget.currentIndex = value;
-          setState(() {});
+          homeController.currentIndex = value;
         },
         children: [
           Container(
@@ -53,28 +39,30 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: widget.currentIndex,
-        onTap: (index) {
-          widget.currentIndex = index;
-
-          pageController.animateToPage(
-            index,
-            curve: Curves.easeIn,
-            duration: const Duration(milliseconds: 300),
+      bottomNavigationBar: Obx(
+        () {
+          return BottomNavigationBar(
+            currentIndex: homeController.currentIndex,
+            onTap: (index) {
+              homeController.currentIndex = index;
+              pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease,
+              );
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Inicio',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Configuración',
+              ),
+            ],
           );
-          setState(() {});
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Configuración',
-          ),
-        ],
       ),
     );
   }

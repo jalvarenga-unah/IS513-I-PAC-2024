@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "411844041251",
+    "project_id": "servicios-app-unah",
+    "storage_bucket": "servicios-app-unah.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411844041251:android:ed06a4a2aadecd0998af96",
+        "android_client_info": {
+          "package_name": "hn.edu.unah.servicios"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBIMH4jRwKOg4IPJrFJMLomJ8qPl4mJRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
