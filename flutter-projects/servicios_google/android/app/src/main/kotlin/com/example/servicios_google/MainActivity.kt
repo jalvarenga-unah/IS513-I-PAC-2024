@@ -1,4 +1,4 @@
-package edu.hn.unah.servicios_google
+package hn.edu.unah.servicios_google
 
 import io.flutter.embedding.android.FlutterActivity
 

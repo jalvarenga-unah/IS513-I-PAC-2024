@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCBIMH4jRwKOg4IPJrFJMLomJ8qPl4mJRM',
-    appId: '1:411844041251:android:ed06a4a2aadecd0998af96',
+    appId: '1:411844041251:android:26db1c6674ebdc9398af96',
     messagingSenderId: '411844041251',
     projectId: 'servicios-app-unah',
     storageBucket: 'servicios-app-unah.appspot.com',
@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCfoghuGM5ddnvcOx_Gb02hO7AvW6egQSA',
-    appId: '1:411844041251:ios:22601ba181c4710298af96',
+    appId: '1:411844041251:ios:529ba096b8ac543098af96',
     messagingSenderId: '411844041251',
     projectId: 'servicios-app-unah',
     storageBucket: 'servicios-app-unah.appspot.com',
-    iosBundleId: 'hn.edu.unah.servicios',
+    iosBundleId: 'com.example.serviciosGoogle',
   );
 }
