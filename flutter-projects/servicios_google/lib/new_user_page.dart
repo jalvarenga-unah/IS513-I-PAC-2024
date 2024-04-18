@@ -4,12 +4,23 @@ import 'package:flutter/material.dart';
 class NewUserPage extends StatelessWidget {
   NewUserPage({super.key});
 
-  final nombreController = TextEditingController(text: 'test desde el app');
-  final correoController = TextEditingController(text: 'dkahsfh');
-  final telefonoController = TextEditingController(text: '123123');
+  final nombreController = TextEditingController();
+  final correoController = TextEditingController();
+  final telefonoController = TextEditingController();
+  final instance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String?;
+
+    if (args != null) {
+      instance.collection('usuarios').doc(args).get().then((value) {
+        nombreController.text = value['nombre'];
+        correoController.text = value['correo'];
+        telefonoController.text = value['telefono'].toString();
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('agregar usuario nuevo'),
@@ -54,8 +65,6 @@ class NewUserPage extends StatelessWidget {
                     'telefono': int.parse(telefonoController.text)
                   };
 
-                  final instance = FirebaseFirestore.instance;
-
                   //mostrar un icono de carga
 
                   //agregar con un ID automatico
@@ -70,7 +79,7 @@ class NewUserPage extends StatelessWidget {
                   //     .collection('usuarios')
                   //     .doc('123')
                   //     .collection('asignatutas_asignadas')
-                  //     .doc()
+                  //     .doc() //Id autogenerado
                   //     .set(data);
 
                   print(respuesta);

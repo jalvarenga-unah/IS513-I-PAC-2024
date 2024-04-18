@@ -1,8 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:servicios_google/firebase_options.dart';
+import 'package:servicios_google/home_page.dart';
+import 'package:servicios_google/login_page.dart';
 import 'package:servicios_google/new_user_page.dart';
 
 void main() async {
@@ -34,11 +36,11 @@ void main() async {
     }
   });
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -57,70 +59,28 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Usuarios'),
-      routes: {
-        '/new_user': (context) => NewUserPage(),
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  @override
-  Widget build(BuildContext context) {
-    // final users = firestore.collection('usuarios').get();
-    final users = firestore.collection('usuarios').snapshots();
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: users,
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final listaUsuarios = snapshot.data!.docs; // La lista de documentos
-
-            return ListView.builder(
-              itemCount: listaUsuarios.length,
-              itemBuilder: (context, index) {
-                final user = listaUsuarios[index];
-
-                // user.id;
-
-                return ListTile(
-                  title: Text(user['nombre']),
-                  subtitle: Text(user['correo']),
-                  trailing: Text('${user['telefono']}'),
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const MyHomePage(
+              title: 'Usuarios desde firebase',
             );
           }
+
+          final test = null;
+
+          return const LoginPage();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/new_user');
-        },
-        tooltip: 'Nuevo usuario',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // initialRoute: '/login',
+      routes: {
+        '/new_user': (context) => NewUserPage(),
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const MyHomePage(
+              title: 'Usuarios desde firebase',
+            ),
+      },
     );
   }
 }
