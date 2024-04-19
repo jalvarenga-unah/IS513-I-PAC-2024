@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewUserPage extends StatelessWidget {
   NewUserPage({super.key});
@@ -8,6 +12,23 @@ class NewUserPage extends StatelessWidget {
   final correoController = TextEditingController();
   final telefonoController = TextEditingController();
   final instance = FirebaseFirestore.instance;
+
+  Future<String> subirFoto(String path) async {
+    // Referencia a la instancia de Firebase Storage
+    final storageRef = FirebaseStorage.instance.ref();
+
+    final imagen = File(path); // el archivo que voy a subir
+
+    //la referencia donde voy a guardar
+    final referenciaFotoPerfil =
+        storageRef.child("usuarios/imagenes/mi_foto.jpg");
+
+    final uploadTask = await referenciaFotoPerfil.putFile(imagen);
+
+    final url = await uploadTask.ref.getDownloadURL();
+
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +75,22 @@ class NewUserPage extends StatelessWidget {
                   labelText: 'Teléfono',
                 ),
               ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
+
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.camera);
+
+                    if (image == null) return;
+
+                    final url = await subirFoto(image.path);
+
+                    print(url);
+                    // image.path
+                  },
+                  child: const Text('Subir foto')),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
